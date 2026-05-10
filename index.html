@@ -1,619 +1,190 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
 
-<title>Growing - 하루 목표와 성장 기록</title>
+  <meta name="google-site-verification"
+  content="DGgIS6LN5vvOAIWMTcM1bHY77o02GwodivpZzrHWZ1E" />
 
-<meta name="description" content="Growing은 하루 목표 체크와 성장 기록을 남기는 웹앱입니다.">
-
-<meta property="og:title" content="Growing">
-<meta property="og:description" content="하루 목표와 성장 기록 앱">
-<meta property="og:type" content="website">
-
-<meta name="theme-color" content="#32b44a">
-
-<meta
-name="google-site-verification"
-content="DGgIS6LN5vvOAIWMTcM1bHY77o02GwodivpZzrHWZ1E"
-/>
-
-<style>
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-}
-
-body{
-  background:#e9ffe8;
-  color:#17351d;
-}
-
-.app{
-  width:100%;
-  min-height:100vh;
-}
-
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:100;
-  background:#ffffffdd;
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid #d6f0d6;
-  padding:14px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.logo{
-  font-size:28px;
-  font-weight:900;
-  color:#1f8d3f;
-}
-
-.btn{
-  border:none;
-  background:#31b34a;
-  color:white;
-  padding:12px 16px;
-  border-radius:14px;
-  font-weight:800;
-  cursor:pointer;
-}
-
-.btn2{
-  border:none;
-  background:#efffef;
-  color:#24753d;
-  padding:12px 16px;
-  border-radius:14px;
-  font-weight:800;
-  cursor:pointer;
-}
-
-.container{
-  width:100%;
-  max-width:1100px;
-  margin:auto;
-  padding:18px;
-}
-
-.card{
-  background:white;
-  border-radius:24px;
-  padding:18px;
-  border:1px solid #d7f2d7;
-  box-shadow:0 10px 30px rgba(0,0,0,.05);
-}
-
-.auth{
-  width:100%;
-  max-width:430px;
-  margin:40px auto;
-}
-
-.input{
-  width:100%;
-  padding:15px;
-  margin-top:12px;
-  border-radius:16px;
-  border:1px solid #cceccc;
-  outline:none;
-}
-
-.input:focus{
-  border-color:#31b34a;
-}
-
-.title{
-  font-size:28px;
-  font-weight:900;
-  margin-bottom:10px;
-}
-
-.sub{
-  color:#5d7462;
-  margin-top:8px;
-}
-
-.hidden{
-  display:none;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-}
-
-.profile{
-  display:flex;
-  gap:14px;
-  align-items:center;
-}
-
-.avatar{
-  width:70px;
-  height:70px;
-  border-radius:22px;
-  background:#d4f7d2;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:30px;
-  font-weight:900;
-  color:#269043;
-}
-
-.level{
-  margin-top:8px;
-  background:#efffef;
-  color:#24813f;
-  display:inline-block;
-  padding:7px 12px;
-  border-radius:999px;
-  font-weight:800;
-}
-
-.goalBox{
-  display:flex;
-  gap:10px;
-  margin-top:16px;
-}
-
-.goalInput{
-  flex:1;
-}
-
-.goalList{
-  margin-top:18px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.goal{
-  background:#f8fff8;
-  border:1px solid #d9f3d9;
-  border-radius:18px;
-  padding:14px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.feed{
-  margin-top:24px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-}
-
-.post{
-  background:white;
-  border-radius:24px;
-  overflow:hidden;
-  border:1px solid #d9f3d9;
-}
-
-.postTop{
-  padding:14px;
-  font-weight:900;
-}
-
-.postImg{
-  width:100%;
-  height:240px;
-  background:linear-gradient(135deg,#dcffdc,#ffffff);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:34px;
-  font-weight:900;
-  color:#289143;
-}
-
-.postBody{
-  padding:14px;
-}
-
-.bottomNav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  background:#ffffffee;
-  border-top:1px solid #d7f0d7;
-  display:flex;
-  justify-content:space-around;
-  padding:10px;
-  backdrop-filter:blur(10px);
-}
-
-.navBtn{
-  background:none;
-  border:none;
-  font-weight:800;
-  color:#4b7152;
-}
-
-@media(max-width:800px){
-
-  .grid{
-    grid-template-columns:1fr;
-  }
-
-  .feed{
-    grid-template-columns:1fr;
-  }
-
-}
-
-</style>
+  <title>Growing - 하루 목표와 성장 기록 웹앱</title>
+  <meta name="description" content="Growing은 하루 목표 체크, 성장 레벨, 짧은 영상 업로드, 댓글, 좋아요, 친구, 채팅 기능을 제공하는 성장 기록 웹앱입니다." />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Growing - 하루 목표와 성장 기록 웹앱" />
+  <meta property="og:description" content="목표를 체크하고 성장 레벨을 올리며 짧은 영상으로 나의 성장을 기록하는 웹앱입니다." />
+  <meta property="og:type" content="website" />
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    html,body{width:100%;min-height:100%;background:#e8ffe8;color:#14351d}
+    body{overflow-x:hidden}button,input,textarea{font:inherit}button{border:0;cursor:pointer}img,video{max-width:100%}
+    .app{width:100%;min-height:100vh;background:linear-gradient(180deg,#dcf8dc,#f7fff7 45%,#fff)}
+    .shell{width:100%;max-width:980px;margin:0 auto;min-height:100vh;background:rgba(255,255,255,.72);padding-bottom:94px;border-left:1px solid #d7f2d7;border-right:1px solid #d7f2d7}
+    .screen{display:none;padding:18px}.screen.active{display:block}.hidden{display:none!important}
+    .brand{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}.brandInner{width:100%;max-width:430px}.logo{font-size:52px;font-weight:900;color:#16843a;letter-spacing:-2px}.logo span{color:#62c96f}.sub{margin-top:10px;color:#527654;font-size:15px;line-height:1.5}.red{color:#df4444!important;font-weight:900}
+    .card{margin-top:20px;background:rgba(255,255,255,.96);border:1px solid #cceccc;border-radius:26px;padding:18px;box-shadow:0 12px 30px rgba(44,122,55,.11)}
+    .field{width:100%;padding:15px;border-radius:18px;border:1px solid #cceccc;background:#fbfffb;outline:0;margin-top:10px;color:#14351d}.field:focus{border-color:#35aa55;box-shadow:0 0 0 4px rgba(53,170,85,.12)}textarea.field{resize:vertical}.notice{margin-top:10px;color:#df4444;font-size:13px;font-weight:900;min-height:18px}
+    .primary{width:100%;padding:15px;border-radius:18px;background:#31a852;color:#fff;font-weight:900;margin-top:12px;box-shadow:0 10px 20px rgba(49,168,82,.25)}.ghost{width:100%;padding:14px;border-radius:18px;background:#ecffec;color:#247c38;font-weight:900;margin-top:10px;border:1px solid #c8efc8}.danger{background:#fff1f1;color:#d64040;border:1px solid #ffd0d0}
+    .topbar{position:sticky;top:0;z-index:20;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(230,255,229,.94);border-bottom:1px solid #c9efce;backdrop-filter:blur(14px)}.top-title{font-size:24px;font-weight:900;color:#16843a}.top-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.small{padding:10px 13px;border-radius:14px;background:#fff;border:1px solid #c9efce;color:#237a38;font-weight:900}.uploadBtn{padding:10px 14px;border-radius:14px;background:#31a852;color:#fff;font-weight:900}.adminBtn{padding:10px 14px;border-radius:14px;background:#173c20;color:#fff;font-weight:900}
+    .grid{display:grid;grid-template-columns:1fr;gap:18px}.profile-head{display:flex;gap:14px;align-items:center}.avatar{width:72px;height:72px;border-radius:24px;background:#cbf7c8;object-fit:cover;border:3px solid #fff;box-shadow:0 8px 22px rgba(44,122,55,.15)}.name{font-size:22px;font-weight:900}.pill{display:inline-flex;margin-top:7px;padding:7px 11px;border-radius:999px;background:#e8ffe7;color:#18863a;font-size:13px;font-weight:900;border:1px solid #c9efce}.adminPill{background:#173c20;color:#fff;border-color:#173c20}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.stat{background:#f6fff6;border:1px solid #d8f4d8;border-radius:18px;padding:13px 8px;text-align:center}.stat b{display:block;font-size:22px;color:#18863a}.stat span{font-size:12px;color:#5a775d;font-weight:800}.bar{height:14px;border-radius:999px;background:#dcf4dc;overflow:hidden;margin-top:16px}.fill{height:100%;width:0;background:linear-gradient(90deg,#31a84f,#8be37e)}
+    .title{margin:24px 0 12px;font-size:18px;font-weight:900}.row{display:flex;gap:8px}.row input{flex:1;margin-top:0}.add{width:58px;min-width:58px;border-radius:18px;background:#31a852;color:#fff;font-size:24px;font-weight:900}.goal-list{display:flex;flex-direction:column;gap:10px;margin-top:14px}.goal{display:flex;align-items:center;gap:10px;padding:13px;border-radius:20px;background:#fff;border:1px solid #d8f4d8}.check{width:30px;height:30px;min-width:30px;border-radius:10px;border:2px solid #38aa53;background:#fff;color:#fff;font-weight:900}.goal.done .check{background:#38aa53}.goal.done .goalText{text-decoration:line-through;opacity:.55}.goalText{flex:1;font-weight:800;word-break:break-word}.del{background:#fff1f1;color:#d64040;padding:8px 10px;border-radius:12px;font-weight:900}.file{display:block;text-align:center;padding:18px;border-radius:20px;border:2px dashed #86d991;background:#f4fff4;color:#247c38;font-weight:900;cursor:pointer}.file input{display:none}
+    .feed{display:grid;grid-template-columns:1fr;gap:18px}.post{background:#fff;border-radius:26px;border:1px solid #d8f4d8;overflow:hidden;box-shadow:0 10px 25px rgba(44,122,55,.1)}.postHead{padding:13px;display:flex;align-items:center;gap:10px;font-weight:900}.postHead img{width:40px;height:40px;border-radius:14px;object-fit:cover}.post video{width:100%;max-height:540px;background:#dff8dc;display:block}.postBody{padding:13px}.act{padding:10px 12px;border-radius:14px;background:#ecffec;color:#247c38;font-weight:900;border:1px solid #c8efc8}.commentRow{display:flex;gap:8px;margin-top:10px}.commentRow input{flex:1;margin-top:0;padding:12px}.comments{display:grid;gap:6px;color:#365d3c;font-size:14px;line-height:1.4}.adminControls{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px solid #e5f5e5}.sampleImg{width:100%;height:190px;background:linear-gradient(135deg,#dff8dc,#fff);display:grid;place-items:center;color:#18863a;font-weight:900;font-size:26px}
+    .infoGrid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px}.infoCard{background:#f6fff6;border:1px solid #d8f4d8;border-radius:18px;padding:14px}.infoCard b{display:block;color:#18863a;margin-bottom:6px}.policyText{line-height:1.7;color:#355d3c}.policyText h3{margin:18px 0 8px}.policyText ul{padding-left:20px}
+    .friend{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid #d8f4d8;border-radius:20px;padding:13px;margin-top:10px}.friendLeft{display:flex;align-items:center;gap:10px;font-weight:900;min-width:0}.mini{width:42px;height:42px;min-width:42px;border-radius:15px;background:#c8f5c4;display:grid;place-items:center;color:#18863a;font-weight:900}.friendActions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.chatBox{height:55vh;overflow:auto;background:#f7fff7;border:1px solid #d8f4d8;border-radius:22px;padding:12px;margin-top:12px}.msg{max-width:78%;margin:8px 0;padding:10px 12px;border-radius:16px;background:#fff;border:1px solid #d8f4d8;line-height:1.4}.msg.me{margin-left:auto;background:#dcf8dc}.msg b{display:block;font-size:12px;color:#18863a;margin-bottom:3px}.chatInput{display:flex;gap:8px;margin-top:10px}.chatInput input{flex:1;margin-top:0}.userAdmin{background:#fff;border:1px solid #d8f4d8;border-radius:20px;padding:13px;margin-top:10px}.userAdminTop{display:flex;align-items:center;justify-content:space-between;gap:10px}.suspended{opacity:.55;background:#f7f7f7}.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#ecffec;color:#247c38;font-size:12px;font-weight:900;margin-top:6px}.badge.bad{background:#fff1f1;color:#d64040}
+    .tabbar{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:980px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:10px 12px calc(14px + env(safe-area-inset-bottom));background:rgba(237,255,235,.96);border-top:1px solid #c9efce;z-index:30}.tabbar button{padding:11px 4px;border-radius:17px;background:transparent;color:#537558;font-size:12px;font-weight:900}.tabbar button.active{background:#fff;color:#18863a;box-shadow:0 6px 14px rgba(44,122,55,.11)}
+    @media(min-width:700px){.screen{padding:26px}.grid{grid-template-columns:1fr 1fr;align-items:start}.feed{grid-template-columns:repeat(2,minmax(0,1fr))}.infoGrid{grid-template-columns:repeat(2,1fr)}.chatBox{height:60vh}}
+    @media(max-width:560px){.shell{max-width:none;border:0}.screen{padding:14px}.topbar{align-items:flex-start}.top-title{font-size:22px;padding-top:5px}.top-actions{gap:6px}.small,.uploadBtn,.adminBtn{font-size:12px;padding:9px 10px}.card{border-radius:22px;padding:14px}.row{gap:7px}.profile-head{align-items:flex-start}.avatar{width:62px;height:62px;border-radius:20px}.name{font-size:20px}.stats{gap:7px}.stat{padding:10px 5px}.stat b{font-size:19px}.feed{gap:14px}.friend{align-items:flex-start;flex-direction:column}.friendActions{width:100%;justify-content:flex-start}.commentRow,.chatInput{align-items:center}.commentRow input,.chatInput input{min-width:0}.sampleImg{height:160px}.brand{padding:16px}.logo{font-size:44px}}
+    @media(max-width:360px){.screen{padding:12px}.top-actions button{font-size:11px;padding:8px}.tabbar{gap:5px;padding-left:8px;padding-right:8px}.tabbar button{font-size:11px}.add{width:50px;min-width:50px}.field{padding:13px}}
+  </style>
 </head>
-
 <body>
+<div class="app"><main class="shell">
+  <section id="authScreen" class="screen active">
+    <div class="brand"><div class="brandInner">
+      <div class="logo">Grow<span>ing</span></div>
+      <p class="sub">하루 목표를 체크하고 짧은 영상으로 성장 기록을 남기는 앱</p>
+      <div class="card">
+        <h2 id="authTitle">로그인</h2>
+        <input id="authName" class="field hidden" placeholder="닉네임">
+        <input id="authEmail" class="field" type="email" placeholder="이메일">
+        <input id="authPw" class="field" type="password" placeholder="비밀번호">
+        <button id="authSubmit" class="primary">로그인하기</button>
+        <button id="authToggle" class="ghost">회원가입으로 바꾸기</button>
+        <p id="authNotice" class="notice"></p>
+        <p class="sub">현재 버전은 브라우저 저장 방식이라 다른 기기와 계정이 자동 공유되지는 않습니다. 스마트폰/컴퓨터에서 같은 계정을 쓰려면 Firebase 같은 서버 연결이 필요합니다.</p>
+      </div>
+    </div></div>
+  </section>
 
-<div id="authScreen" class="auth">
+  <div id="mainApp" class="hidden">
+    <header class="topbar">
+      <div class="top-title">Growing</div>
+      <div class="top-actions">
+        <button class="small" onclick="showInfoPage()">소개/정책</button>
+        <button id="adminTopBtn" class="adminBtn hidden" onclick="showAdminPage()">관리자</button>
+        <button class="uploadBtn" onclick="showUploadPage()">업로드</button>
+        <button class="small" onclick="logout()">로그아웃</button>
+      </div>
+    </header>
 
-<div class="card">
+    <section id="homeScreen" class="screen active">
+      <div class="grid">
+        <div class="card">
+          <div class="profile-head"><img id="homeAvatar" class="avatar" alt="프로필"><div><div id="homeName" class="name">User</div><div id="levelText" class="pill">Lv. 1 새싹</div><div id="adminText" class="pill adminPill hidden">개발자 권한</div></div></div>
+          <div class="stats"><div class="stat"><b id="goalCount">0</b><span>목표</span></div><div class="stat"><b id="doneCount">0</b><span>완료</span></div><div class="stat"><b id="postCount">0</b><span>영상</span></div></div>
+          <div class="bar"><div id="progressFill" class="fill"></div></div>
+        </div>
+        <div class="card"><h3 class="title" style="margin-top:0">하루 목표 체크</h3><div class="row"><input id="goalInput" class="field" placeholder="오늘 목표 입력"><button class="add" onclick="addGoal()">+</button></div><div id="goalList" class="goal-list"></div></div>
+      </div>
+      <h3 class="title">추천 영상</h3><div id="homeRecommendList" class="feed"></div>
+      <div class="card"><h3>앱 설명</h3><p class="sub">Growing은 목표 체크, 성장 레벨, 영상 업로드, 댓글, 좋아요, 친구, 채팅 기능이 있는 성장 기록 웹앱입니다.</p><div class="infoGrid"><div class="infoCard"><b>목표 체크</b>완료하면 XP가 올라가요.</div><div class="infoCard"><b>영상 업로드</b>성장 기록을 올릴 수 있어요.</div><div class="infoCard"><b>친구/채팅</b>친구와 함께 성장해요.</div><div class="infoCard"><b>정책 페이지</b>개인정보와 이용약관을 확인해요.</div></div></div>
+    </section>
 
-<div class="title">
-Growing
-</div>
+    <section id="infoScreen" class="screen">
+      <div class="card"><button class="ghost" onclick="showTab('home')">← 홈으로</button><h2 class="title">Growing 소개</h2><p class="policyText">Growing은 하루 목표를 기록하고, 짧은 성장 게시글과 영상을 올리며, 친구와 함께 꾸준히 성장하는 커뮤니티형 웹앱입니다.</p><div class="infoGrid"><div class="infoCard"><b>하루 목표</b>오늘 할 일을 체크하고 경험치를 얻습니다.</div><div class="infoCard"><b>성장 레벨</b>목표 완료와 업로드로 레벨이 올라갑니다.</div><div class="infoCard"><b>커뮤니티</b>좋아요, 댓글, 친구 추가, 채팅을 사용할 수 있습니다.</div><div class="infoCard"><b>반응형 UI</b>아이폰, 갤럭시, 태블릿 화면에 맞게 보입니다.</div></div></div>
+      <div class="card policyText"><h2>개인정보 처리방침</h2><p>본 웹앱은 회원가입, 로그인, 프로필, 게시글, 댓글, 친구, 채팅 기능 제공을 위해 사용자가 입력한 이메일, 닉네임, 프로필 이미지, 게시글, 댓글, 채팅 내용을 브라우저 저장소에 저장합니다.</p><h3>수집 항목</h3><ul><li>이메일, 닉네임, 비밀번호</li><li>프로필 이미지, 목표 기록, 게시글, 댓글, 채팅 내용</li></ul><h3>이용 목적</h3><ul><li>회원 식별 및 로그인</li><li>게시글, 댓글, 친구, 채팅 기능 제공</li><li>서비스 운영 및 부정 이용 방지</li></ul><h3>보관</h3><p>현재 버전은 서버가 아닌 사용자의 브라우저 localStorage에 저장되는 연습용 웹앱입니다. 브라우저 데이터를 삭제하면 저장된 정보도 삭제될 수 있습니다.</p></div>
+      <div class="card policyText"><h2>이용약관</h2><p>사용자는 Growing을 목표 기록, 성장 공유, 커뮤니티 활동 목적으로 사용할 수 있습니다.</p><h3>금지 사항</h3><ul><li>타인을 괴롭히거나 불쾌하게 하는 내용 게시</li><li>불법, 폭력적, 혐오적, 개인정보 침해 내용 게시</li><li>다른 사람의 계정 무단 사용</li><li>서비스 운영을 방해하는 행위</li></ul><p>운영자는 부적절한 게시글을 삭제하거나 계정을 정지할 수 있습니다.</p></div>
+      <div class="card policyText"><h2>문의 이메일</h2><p>서비스 문의: <b>hongtaegeongaebalja@gmail.com</b></p></div>
+    </section>
 
-<p class="sub">
-하루 목표를 기록하고 성장하는 앱
-</p>
+    <section id="videoScreen" class="screen"><h3 class="title" style="margin-top:0">사람들이 올린 영상</h3><div id="feedList" class="feed"></div></section>
+    <section id="uploadPageScreen" class="screen"><div class="card"><button class="ghost" onclick="showTab('video')">← 영상으로 돌아가기</button><h3 class="title">새 영상 업로드</h3><label class="file">영상 선택하기<input id="videoInput" type="file" accept="video/*"></label><textarea id="captionInput" class="field" rows="3" placeholder="영상 설명 입력"></textarea><button class="primary" onclick="uploadVideo()">업로드</button><p class="sub">업로드하면 영상 탭과 홈 추천 영상에 바로 보여.</p></div></section>
+    <section id="friendsScreen" class="screen"><div class="card"><h3>친구 추가</h3><div class="row" style="margin-top:12px"><input id="friendInput" class="field" placeholder="친구 닉네임 또는 이메일"><button class="add" onclick="addFriend()">+</button></div><p id="friendNotice" class="notice"></p></div><h3 class="title">친구 목록</h3><div id="friendList"></div></section>
+    <section id="chatScreen" class="screen"><div class="card"><button class="ghost" onclick="showTab('friends')">← 친구 목록으로</button><h3 id="chatTitle" class="title">채팅</h3><div id="chatBox" class="chatBox"></div><div class="chatInput"><input id="chatInput" class="field" placeholder="메시지 입력"><button class="uploadBtn" onclick="sendMessage()">전송</button></div></div></section>
+    <section id="profileScreen" class="screen"><div class="card"><h3>프로필 꾸미기</h3><div class="profile-head" style="margin-top:14px"><img id="profileAvatar" class="avatar" alt="프로필"><div><div id="profileNameView" class="name">User</div><div id="profileLevelView" class="pill">Lv. 1 새싹</div></div></div><input id="profileNameInput" class="field" placeholder="닉네임 변경"><label class="file" style="margin-top:10px">프로필 사진 업로드<input id="avatarInput" type="file" accept="image/*"></label><button class="primary" onclick="saveProfile()">프로필 저장</button></div></section>
+    <section id="adminScreen" class="screen"><div class="card"><button class="ghost" onclick="showTab('home')">← 홈으로</button><h3 class="title">개발자 관리자 페이지</h3><p class="sub">개발자 이메일 계정에서만 보이는 관리 화면입니다.</p></div><h3 class="title">계정 관리</h3><div id="adminUserList"></div></section>
 
-<input
-id="nickname"
-class="input"
-placeholder="닉네임"
->
-
-<input
-id="email"
-type="email"
-class="input"
-placeholder="이메일"
->
-
-<input
-id="password"
-type="password"
-class="input"
-placeholder="비밀번호"
->
-
-<button
-id="signupBtn"
-class="btn"
-style="width:100%;margin-top:14px;"
->
-회원가입
-</button>
-
-<button
-id="loginBtn"
-class="btn2"
-style="width:100%;margin-top:10px;"
->
-로그인
-</button>
-
-</div>
-
-</div>
-
-<div id="mainApp" class="hidden">
-
-<header class="topbar">
-
-<div class="logo">
-Growing
-</div>
-
-<button
-id="logoutBtn"
-class="btn2"
->
-로그아웃
-</button>
-
-</header>
-
-<div class="container">
-
-<div class="grid">
-
-<div class="card">
-
-<div class="profile">
-
-<div class="avatar">
-G
-</div>
-
-<div>
-
-<div
-id="profileName"
-style="font-size:24px;font-weight:900;"
->
-User
-</div>
-
-<div class="level">
-Lv.1 새싹
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<div
-style="font-size:22px;font-weight:900;"
->
-오늘 목표
-</div>
-
-<div class="goalBox">
-
-<input
-id="goalInput"
-class="input goalInput"
-placeholder="목표 입력"
->
-
-<button
-id="addGoalBtn"
-class="btn"
->
-+
-</button>
-
-</div>
-
-<div
-id="goalList"
-class="goalList"
-></div>
-
-</div>
-
-</div>
-
-<div class="feed">
-
-<div class="post">
-
-<div class="postTop">
-Growing Team
-</div>
-
-<div class="postImg">
-목표 완료
-</div>
-
-<div class="postBody">
-오늘 목표 성공!
-</div>
-
-</div>
-
-<div class="post">
-
-<div class="postTop">
-Growing Team
-</div>
-
-<div class="postImg">
-성장 기록
-</div>
-
-<div class="postBody">
-매일 성장해보자 🚀
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<nav class="bottomNav">
-
-<button class="navBtn">
-홈
-</button>
-
-<button class="navBtn">
-영상
-</button>
-
-<button class="navBtn">
-친구
-</button>
-
-<button class="navBtn">
-프로필
-</button>
-
-</nav>
-
-</div>
+    <nav class="tabbar"><button id="tabHome" class="active" onclick="showTab('home')">홈</button><button id="tabVideo" onclick="showTab('video')">영상</button><button id="tabFriends" onclick="showTab('friends')">친구</button><button id="tabProfile" onclick="showTab('profile')">프로필</button></nav>
+  </div>
+</main></div>
 
 <script>
-
-const users =
-JSON.parse(
-localStorage.getItem("growing_users")
-) || [];
-
-let currentUser = null;
-
-
-
-const authScreen =
-document.getElementById("authScreen");
-
-const mainApp =
-document.getElementById("mainApp");
-
-
-
-document.getElementById("signupBtn")
-.onclick = ()=>{
-
-  const nickname =
-  document.getElementById("nickname").value;
-
-  const email =
-  document.getElementById("email").value;
-
-  const password =
-  document.getElementById("password").value;
-
-  if(!nickname || !email || !password){
-
-    alert("모든 칸 입력해줘");
-
-    return;
-
-  }
-
-  const already =
-  users.find(
-    user => user.email === email
-  );
-
-  if(already){
-
-    alert("이미 사용중인 이메일");
-
-    return;
-
-  }
-
-  users.push({
-    nickname,
-    email,
-    password
+const STORAGE_KEY="growing_app_email_login_v1";
+const OLD_KEYS=["growing_app_admin_chat_v1","growing_app_clean_v1","growing_app_v2","growing_app_v1"];
+const ADMIN_EMAIL="hongtaegeongaebalja@gmail.com";
+const defaultAvatar="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect width='200' height='200' rx='45' fill='%23cbf7c8'/%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' font-size='76' font-family='Arial' fill='%2318863a' font-weight='900'%3EG%3C/text%3E%3C/svg%3E";
+let isSignup=false,currentUserEmail=null,currentChatFriendEmail=null,db=loadDB();
+function $(id){return document.getElementById(id)}
+function normalizeEmail(email){return String(email||"").trim().toLowerCase()}
+function loadDB(){
+  let saved=null;try{saved=JSON.parse(localStorage.getItem(STORAGE_KEY))}catch(e){}
+  if(saved&&saved.users)return saved;
+  for(const key of OLD_KEYS){try{const old=JSON.parse(localStorage.getItem(key));if(old&&old.users){return migrateDB(old)}}catch(e){}}
+  return {users:{},currentUserEmail:null,chats:{}};
+}
+function migrateDB(old){
+  const next={users:{},currentUserEmail:null,chats:old.chats||{}};
+  Object.values(old.users||{}).forEach(function(u){
+    const email=normalizeEmail(u.email||u.id);
+    if(!email)return;
+    next.users[email]={email:email,pw:u.pw||"",name:u.name||email.split("@")[0],avatar:u.avatar||defaultAvatar,goals:u.goals||[],posts:u.posts||[],friends:[],xp:u.xp||0,suspended:u.suspended||false,suspendedUntil:u.suspendedUntil||null};
+    next.users[email].posts.forEach(function(p){p.ownerEmail=email;p.owner=next.users[email].name;p.avatar=next.users[email].avatar;if(!p.likedBy)p.likedBy=[]});
   });
+  Object.values(old.users||{}).forEach(function(u){const email=normalizeEmail(u.email||u.id);if(next.users[email]){next.users[email].friends=(u.friends||[]).map(function(f){const fu=old.users[f];return normalizeEmail((fu&&fu.email)||f)}).filter(function(f){return next.users[f]})}});
+  const cur=old.currentUserId&&old.users[old.currentUserId]?normalizeEmail(old.users[old.currentUserId].email||old.currentUserId):null;
+  next.currentUserEmail=cur&&next.users[cur]?cur:null;
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(next));
+  return next;
+}
+function saveDB(){localStorage.setItem(STORAGE_KEY,JSON.stringify(db))}
+function user(){return db.users[currentUserEmail]}
+function isAdmin(){return user()&&normalizeEmail(user().email)===ADMIN_EMAIL}
+function safe(t){return String(t).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
+function emailUsed(email){return !!db.users[normalizeEmail(email)]}
+function nameUsed(name){const n=String(name).trim().toLowerCase();return Object.values(db.users).some(function(u){return String(u.name).trim().toLowerCase()===n})}
+function findUser(text){const key=String(text).trim().toLowerCase();return Object.values(db.users).find(function(u){return normalizeEmail(u.email)===key||String(u.name).toLowerCase()===key})}
+function isSuspendedAccount(u){if(!u)return false;if(u.suspended===true)return true;if(u.suspendedUntil&&Date.now()<u.suspendedUntil)return true;if(u.suspendedUntil&&Date.now()>=u.suspendedUntil){u.suspendedUntil=null;u.suspended=false;saveDB();return false}return false}
+function suspendText(u){if(!isSuspendedAccount(u))return "정상";if(u.suspended===true)return "영구 정지";if(u.suspendedUntil){const d=new Date(u.suspendedUntil);return "기간 정지: "+d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}return "정지됨"}
+function chatKey(a,b){return [normalizeEmail(a),normalizeEmail(b)].sort().join("__")}
 
-  localStorage.setItem(
-    "growing_users",
-    JSON.stringify(users)
-  );
-
-  alert("회원가입 완료!");
-
-};
-
-
-
-document.getElementById("loginBtn")
-.onclick = ()=>{
-
-  const email =
-  document.getElementById("email").value;
-
-  const password =
-  document.getElementById("password").value;
-
-  const user =
-  users.find(
-    user =>
-    user.email === email &&
-    user.password === password
-  );
-
-  if(!user){
-
-    alert("로그인 실패");
-
-    return;
-
+$("authToggle").onclick=function(){isSignup=!isSignup;$("authTitle").textContent=isSignup?"회원가입":"로그인";$("authSubmit").textContent=isSignup?"가입하기":"로그인하기";$("authToggle").textContent=isSignup?"로그인으로 바꾸기":"회원가입으로 바꾸기";$("authName").classList.toggle("hidden",!isSignup);$("authNotice").textContent=""};
+$("authSubmit").onclick=function(){
+  const email=normalizeEmail($("authEmail").value),pw=$("authPw").value.trim(),name=$("authName").value.trim();
+  if(!email||!pw){$("authNotice").textContent="이메일과 비밀번호를 입력해줘.";return}
+  if(isSignup){
+    if(!name){$("authNotice").textContent="닉네임을 입력해줘.";return}
+    if(emailUsed(email)){$("authNotice").textContent="이미 누군가 사용중인 이메일이야.";return}
+    if(nameUsed(name)){$("authNotice").textContent="이미 누군가 사용중인 닉네임이야.";return}
+    db.users[email]={email:email,pw:pw,name:name,avatar:defaultAvatar,goals:[],posts:[],friends:[],xp:0,suspended:false,suspendedUntil:null};
+  }else{
+    if(!db.users[email]||db.users[email].pw!==pw){$("authNotice").textContent="이메일 또는 비밀번호가 틀렸어.";return}
+    if(isSuspendedAccount(db.users[email])){$("authNotice").textContent="정지된 계정입니다. "+suspendText(db.users[email]);return}
   }
-
-  currentUser = user;
-
-  document.getElementById(
-    "profileName"
-  ).innerText =
-  user.nickname;
-
-  authScreen.classList.add("hidden");
-
-  mainApp.classList.remove("hidden");
-
+  currentUserEmail=email;db.currentUserEmail=email;saveDB();openApp();
 };
-
-
-
-document.getElementById("logoutBtn")
-.onclick = ()=>{
-
-  currentUser = null;
-
-  authScreen.classList.remove("hidden");
-
-  mainApp.classList.add("hidden");
-
-};
-
-
-
-const goalInput =
-document.getElementById("goalInput");
-
-const goalList =
-document.getElementById("goalList");
-
-
-
-document.getElementById("addGoalBtn")
-.onclick = ()=>{
-
-  const text = goalInput.value;
-
-  if(!text) return;
-
-  const div =
-  document.createElement("div");
-
-  div.className = "goal";
-
-  div.innerHTML = `
-    <span>${text}</span>
-    <button class="btn2">완료</button>
-  `;
-
-  div.querySelector("button")
-  .onclick = ()=>{
-
-    div.style.opacity = ".5";
-
-  };
-
-  goalList.prepend(div);
-
-  goalInput.value = "";
-
-};
-
+function openApp(){$("authScreen").classList.remove("active");$("mainApp").classList.remove("hidden");showTab("home")}
+function logout(){db.currentUserEmail=null;currentUserEmail=null;currentChatFriendEmail=null;saveDB();$("mainApp").classList.add("hidden");$("authScreen").classList.add("active")}
+function hideScreens(){["homeScreen","infoScreen","videoScreen","uploadPageScreen","friendsScreen","chatScreen","profileScreen","adminScreen"].forEach(function(id){$(id).classList.remove("active")})}
+function setTab(tab){["Home","Video","Friends","Profile"].forEach(function(n){$("tab"+n).classList.remove("active")});if(tab)$("tab"+tab).classList.add("active")}
+function showTab(name){hideScreens();if(name==="home"){$("homeScreen").classList.add("active");setTab("Home")}if(name==="video"){$("videoScreen").classList.add("active");setTab("Video")}if(name==="friends"){$("friendsScreen").classList.add("active");setTab("Friends")}if(name==="profile"){$("profileScreen").classList.add("active");setTab("Profile")}renderAll()}
+function showUploadPage(){hideScreens();$("uploadPageScreen").classList.add("active");setTab("");renderAll()}
+function showInfoPage(){hideScreens();$("infoScreen").classList.add("active");setTab("");renderAll()}
+function showAdminPage(){if(!isAdmin())return;hideScreens();$("adminScreen").classList.add("active");setTab("");renderAll()}
+function showChat(email){currentChatFriendEmail=normalizeEmail(email);hideScreens();$("chatScreen").classList.add("active");setTab("");renderAll()}
+function levelInfo(xp){const lv=Math.floor(xp/100)+1,names=["새싹","잎새","줄기","나무","숲","빛나는 숲"];return {lv:lv,name:names[Math.min(lv-1,names.length-1)],per:xp%100}}
+function addGoal(){const text=$("goalInput").value.trim();if(!text)return;user().goals.unshift({id:Date.now(),text:text,done:false});$("goalInput").value="";saveDB();renderAll()}
+function toggleGoal(id){const g=user().goals.find(function(x){return x.id===id});if(!g)return;g.done=!g.done;user().xp=Math.max(0,user().xp+(g.done?20:-20));saveDB();renderAll()}
+function deleteGoal(id){user().goals=user().goals.filter(function(g){return g.id!==id});saveDB();renderAll()}
+function uploadVideo(){if(isSuspendedAccount(user())){alert("정지된 계정입니다. "+suspendText(user()));return}const file=$("videoInput").files[0],caption=$("captionInput").value.trim();if(!file){alert("영상을 선택해줘.");return}const reader=new FileReader();reader.onload=function(e){const u=user();u.posts.unshift({id:Date.now(),src:e.target.result,caption:caption,likes:0,likedBy:[],comments:[],ownerEmail:u.email,owner:u.name,avatar:u.avatar});u.xp+=30;$("videoInput").value="";$("captionInput").value="";saveDB();showTab("video")};reader.readAsDataURL(file)}
+function samplePosts(){return [{id:900000000003,type:"sample",owner:"Growing Team",avatar:defaultAvatar,caption:"오늘의 목표: 물 마시기, 20분 걷기, 영어 단어 10개 외우기 완료!",likes:7,likedBy:[],comments:[{name:"새싹이",text:"나도 오늘 목표 완료!"}],sampleTitle:"목표 완료"},{id:900000000002,type:"sample",owner:"Growing Team",avatar:defaultAvatar,caption:"작은 목표라도 매일 하면 레벨이 올라가요. 오늘도 한 걸음 성장!",likes:12,likedBy:[],comments:[{name:"그로워",text:"꾸준히 해볼게요"}],sampleTitle:"성장 기록"},{id:900000000001,type:"sample",owner:"Growing Team",avatar:defaultAvatar,caption:"친구를 추가하고 서로 응원 메시지를 보내보세요.",likes:5,likedBy:[],comments:[{name:"친구",text:"응원합니다!"}],sampleTitle:"친구 응원"}]}
+function allPosts(){let arr=samplePosts();Object.values(db.users).forEach(function(u){(u.posts||[]).forEach(function(p){if(!p.ownerEmail)p.ownerEmail=u.email;arr.push(p)})});return arr.sort(function(a,b){return b.id-a.id})}
+function findPost(postId){for(const u of Object.values(db.users)){const p=(u.posts||[]).find(function(x){return x.id===postId});if(p)return {owner:u,post:p}}return null}
+function toggleLike(postId){const found=findPost(postId);if(!found){alert("샘플 게시글은 좋아요 저장이 안 돼. 직접 올린 게시글에서 테스트해줘.");return}const p=found.post;if(!p.likedBy)p.likedBy=[];const idx=p.likedBy.indexOf(currentUserEmail);if(idx>=0)p.likedBy.splice(idx,1);else p.likedBy.push(currentUserEmail);saveDB();renderAll()}
+function addComment(postId){const input=$("commentInput"+postId),text=input.value.trim();if(!text)return;const found=findPost(postId);if(!found){alert("샘플 게시글은 댓글 저장이 안 돼. 직접 올린 게시글에서 테스트해줘.");return}found.post.comments.push({name:user().name,text:text});input.value="";saveDB();renderAll()}
+function adminDeletePost(postId){if(!isAdmin())return;const found=findPost(postId);if(!found)return;found.owner.posts=found.owner.posts.filter(function(p){return p.id!==postId});saveDB();renderAll()}
+function adminPermanentSuspend(email){if(!isAdmin())return;email=normalizeEmail(email);if(email===currentUserEmail){alert("자기 자신은 정지할 수 없어.");return}const t=db.users[email];if(!t)return;t.suspended=true;t.suspendedUntil=null;saveDB();renderAll()}
+function adminTempSuspend(email){if(!isAdmin())return;email=normalizeEmail(email);if(email===currentUserEmail){alert("자기 자신은 정지할 수 없어.");return}const t=db.users[email];if(!t)return;const days=Number(prompt("며칠 동안 정지할까요? 숫자만 입력해줘. 예: 3"));if(!days||days<1){alert("1일 이상 숫자로 입력해줘.");return}t.suspended=false;t.suspendedUntil=Date.now()+days*24*60*60*1000;saveDB();renderAll()}
+function adminUnsuspend(email){if(!isAdmin())return;email=normalizeEmail(email);const t=db.users[email];if(!t)return;t.suspended=false;t.suspendedUntil=null;saveDB();renderAll()}
+function addFriend(){const text=$("friendInput").value.trim();$("friendNotice").textContent="";if(!text)return;const target=findUser(text);if(!target){$("friendNotice").textContent="그 사람을 찾을 수 없어.";return}if(target.email===currentUserEmail){$("friendNotice").textContent="자기 자신은 친구 추가할 수 없어.";return}if(isSuspendedAccount(target)){$("friendNotice").textContent="정지된 계정은 친구 추가할 수 없어.";return}if(!user().friends.includes(target.email))user().friends.push(target.email);$("friendInput").value="";saveDB();renderAll()}
+function removeFriend(index){user().friends.splice(index,1);saveDB();renderAll()}
+function sendMessage(){if(!currentChatFriendEmail)return;const text=$("chatInput").value.trim();if(!text)return;const key=chatKey(currentUserEmail,currentChatFriendEmail);if(!db.chats)db.chats={};if(!db.chats[key])db.chats[key]=[];db.chats[key].push({from:currentUserEmail,name:user().name,text:text,time:Date.now()});$("chatInput").value="";saveDB();renderChat()}
+function saveProfile(){const u=user(),newName=$("profileNameInput").value.trim(),file=$("avatarInput").files[0];if(newName&&String(newName).toLowerCase()!==String(u.name).toLowerCase()&&nameUsed(newName)){alert("이미 누군가 사용중인 닉네임이야.");return}if(newName)u.name=newName;if(file){const reader=new FileReader();reader.onload=function(e){u.avatar=e.target.result;u.posts.forEach(function(p){p.owner=u.name;p.avatar=u.avatar});$("profileNameInput").value="";$("avatarInput").value="";saveDB();renderAll()};reader.readAsDataURL(file)}else{$("profileNameInput").value="";u.posts.forEach(function(p){p.owner=u.name});saveDB();renderAll()}}
+function renderAll(){if(!currentUserEmail)return;const u=user(),done=u.goals.filter(function(g){return g.done}).length,lv=levelInfo(u.xp);$("homeAvatar").src=u.avatar||defaultAvatar;$("profileAvatar").src=u.avatar||defaultAvatar;$("homeName").textContent=u.name;$("profileNameView").textContent=u.name;$("levelText").textContent="Lv. "+lv.lv+" "+lv.name;$("profileLevelView").textContent="Lv. "+lv.lv+" "+lv.name;$("goalCount").textContent=u.goals.length;$("doneCount").textContent=done;$("postCount").textContent=u.posts.length;$("progressFill").style.width=lv.per+"%";$("adminTopBtn").classList.toggle("hidden",!isAdmin());$("adminText").classList.toggle("hidden",!isAdmin());renderGoals();renderFeed("feedList",false);renderFeed("homeRecommendList",true);renderFriends();renderChat();renderAdmin()}
+function renderGoals(){const box=$("goalList");box.innerHTML="";const goals=user().goals;if(goals.length===0){box.innerHTML='<p class="sub">아직 목표가 없어. 오늘 할 일을 추가해봐.</p>';return}goals.forEach(function(g){const div=document.createElement("div");div.className="goal"+(g.done?" done":"");div.innerHTML='<button class="check">✓</button><div class="goalText">'+safe(g.text)+'</div><button class="del">삭제</button>';div.querySelector(".check").onclick=function(){toggleGoal(g.id)};div.querySelector(".del").onclick=function(){deleteGoal(g.id)};box.appendChild(div)})}
+function renderFeed(targetId,recommendOnly){const box=$(targetId);box.innerHTML="";const posts=recommendOnly?allPosts().slice(0,4):allPosts();if(posts.length===0){box.innerHTML='<div class="card"><p class="sub">아직 영상이 없어. 오른쪽 위 업로드 버튼을 눌러 첫 영상을 올려봐.</p></div>';return}posts.forEach(function(p){const liked=(p.likedBy||[]).includes(currentUserEmail),likeCount=p.type==="sample"?p.likes:(p.likedBy||[]).length,div=document.createElement("div");div.className="post";const mediaHtml=p.type==="sample"?'<div class="sampleImg">'+safe(p.sampleTitle||'Growing')+'</div>':'<video src="'+p.src+'" controls playsinline></video>';div.innerHTML='<div class="postHead"><img src="'+(p.avatar||defaultAvatar)+'" alt="프로필"><span>'+safe(p.owner||"사용자")+'</span></div>'+mediaHtml+'<div class="postBody"><button class="act likeBtn">'+(liked?'좋아요 취소':'좋아요')+' '+likeCount+'</button><p style="font-weight:800;margin:10px 0 8px">'+safe(p.caption||'성장 기록')+'</p><div class="comments"></div><div class="commentRow"><input id="commentInput'+p.id+'" class="field" placeholder="댓글 달기"><button class="act commentBtn">등록</button></div><div class="adminControls hidden"><button class="del adminDel">영상 삭제</button><button class="del adminBan">계정 영구 정지</button></div></div>';const comments=div.querySelector(".comments");(p.comments||[]).forEach(function(c){const cdiv=document.createElement("div");cdiv.innerHTML='<b>'+safe(c.name||'사용자')+'</b> '+safe(c.text||c);comments.appendChild(cdiv)});div.querySelector(".likeBtn").onclick=function(){toggleLike(p.id)};div.querySelector(".commentBtn").onclick=function(){addComment(p.id)};if(isAdmin()&&p.type!=="sample"){div.querySelector(".adminControls").classList.remove("hidden");div.querySelector(".adminDel").onclick=function(){adminDeletePost(p.id)};div.querySelector(".adminBan").onclick=function(){adminPermanentSuspend(p.ownerEmail)}}box.appendChild(div)})}
+function renderFriends(){const box=$("friendList");box.innerHTML="";const friends=user().friends;if(friends.length===0){box.innerHTML='<div class="card"><p class="sub">아직 친구가 없어. 친구를 추가해봐.</p></div>';return}friends.forEach(function(friendEmail,i){const f=db.users[friendEmail];if(!f)return;const div=document.createElement("div");div.className="friend";div.innerHTML='<div class="friendLeft"><div class="mini">'+safe(f.name.charAt(0)||'F')+'</div><div>'+safe(f.name)+'<div class="sub" style="margin-top:0">'+safe(f.email)+'</div></div></div><div class="friendActions"><button class="small chatBtn">채팅</button><button class="del removeBtn">삭제</button></div>';div.querySelector(".chatBtn").onclick=function(){showChat(friendEmail)};div.querySelector(".removeBtn").onclick=function(){removeFriend(i)};box.appendChild(div)})}
+function renderChat(){if(!currentChatFriendEmail)return;const friend=db.users[currentChatFriendEmail];if(!friend)return;$("chatTitle").textContent=friend.name+"님과 채팅";const key=chatKey(currentUserEmail,currentChatFriendEmail),msgs=(db.chats&&db.chats[key])?db.chats[key]:[],box=$("chatBox");box.innerHTML="";if(msgs.length===0){box.innerHTML='<p class="sub">아직 메시지가 없어.</p>';return}msgs.forEach(function(m){const div=document.createElement("div");div.className="msg"+(m.from===currentUserEmail?" me":"");div.innerHTML='<b>'+safe(m.name)+'</b>'+safe(m.text);box.appendChild(div)});box.scrollTop=box.scrollHeight}
+function renderAdmin(){const box=$("adminUserList");if(!box)return;box.innerHTML="";if(!isAdmin())return;Object.values(db.users).forEach(function(u){const suspended=isSuspendedAccount(u),div=document.createElement("div");div.className="userAdmin"+(suspended?" suspended":"");div.innerHTML='<div class="userAdminTop"><div><b>'+safe(u.name)+'</b><div class="sub" style="margin-top:0">'+safe(u.email)+'</div><span class="badge '+(suspended?'bad':'')+'">'+safe(suspendText(u))+'</span></div><div class="friendActions"><button class="del tempBtn">며칠 정지</button><button class="del permBtn">영구 정지</button><button class="small unbanBtn">정지 해제</button></div></div>';div.querySelector(".tempBtn").onclick=function(){adminTempSuspend(u.email)};div.querySelector(".permBtn").onclick=function(){adminPermanentSuspend(u.email)};div.querySelector(".unbanBtn").onclick=function(){adminUnsuspend(u.email)};box.appendChild(div)})}
+window.onload=function(){if(db.currentUserEmail&&db.users[db.currentUserEmail]&&!isSuspendedAccount(db.users[db.currentUserEmail])){currentUserEmail=db.currentUserEmail;openApp()}};
 </script>
-
 </body>
 </html>
