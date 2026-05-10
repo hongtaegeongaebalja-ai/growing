@@ -1,430 +1,648 @@
-# Growing Firebase 버전 기본 코드
-
-```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Growing</title>
 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#31a852">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<meta
+name="google-site-verification"
+content="DGgIS6LN5vvOAIWMTcM1bHY77o02GwodivpZzrHWZ1E"
+/>
+
+<title>Growing - 성장 기록 앱</title>
+
+<meta
+name="description"
+content="Growing은 목표 체크, 성장 기록, 영상 업로드, 친구, 채팅 기능이 있는 성장 웹앱입니다."
+/>
+
+<link rel="manifest" href="manifest.json" />
+
+<meta name="theme-color" content="#31a852" />
 
 <style>
+
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:sans-serif;
 }
 
 body{
-  background:#e8ffe8;
-  color:#14351d;
+background:#e8ffe8;
+color:#14351d;
+}
+
+.dark{
+background:#111;
+color:white;
 }
 
 header{
-  padding:16px;
-  background:white;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  position:sticky;
-  top:0;
+position:sticky;
+top:0;
+z-index:10;
+background:white;
+padding:16px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid #d6f2d6;
+}
+
+.dark header{
+background:#1e1e1e;
 }
 
 .logo{
-  font-size:28px;
-  font-weight:900;
-  color:#1c8d43;
+font-size:28px;
+font-weight:900;
+color:#16843a;
 }
 
 .container{
-  max-width:1000px;
-  margin:auto;
-  padding:16px;
+max-width:1000px;
+margin:auto;
+padding:16px;
+padding-bottom:100px;
 }
 
 .card{
-  background:white;
-  border-radius:24px;
-  padding:20px;
-  margin-top:16px;
+background:white;
+padding:20px;
+border-radius:24px;
+margin-top:16px;
+box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+.dark .card{
+background:#1f1f1f;
 }
 
 input,
 textarea,
 button{
-  width:100%;
-  padding:14px;
-  border-radius:16px;
-  border:none;
-  margin-top:10px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:16px;
+margin-top:10px;
+font-size:16px;
+}
+
+input,
+textarea{
+background:#f4fff4;
+}
+
+.dark input,
+.dark textarea{
+background:#2d2d2d;
+color:white;
 }
 
 button{
-  background:#31a852;
-  color:white;
-  font-weight:900;
-  cursor:pointer;
+background:#31a852;
+color:white;
+font-weight:900;
+cursor:pointer;
 }
 
 .feed{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:16px;
+display:grid;
+grid-template-columns:1fr;
+gap:16px;
+margin-top:16px;
+}
+
+.post{
+background:white;
+border-radius:24px;
+overflow:hidden;
+}
+
+.dark .post{
+background:#1f1f1f;
 }
 
 video{
-  width:100%;
-  border-radius:20px;
+width:100%;
+display:block;
 }
 
 .topBtns{
-  display:flex;
-  gap:10px;
+display:flex;
+gap:10px;
 }
 
 .smallBtn{
-  width:auto;
-  padding:10px 14px;
+width:auto;
+padding:10px 14px;
+}
+
+.goal{
+padding:14px;
+background:#f4fff4;
+border-radius:16px;
+margin-top:10px;
+font-weight:900;
+}
+
+.dark .goal{
+background:#2d2d2d;
 }
 
 .hidden{
-  display:none;
+display:none;
 }
 
-.dark{
-  background:#111;
-  color:white;
-}
-
-.dark .card,
-.dark header{
-  background:#1e1e1e;
+.level{
+margin-top:8px;
+font-weight:900;
+color:#31a852;
 }
 
 @media(min-width:900px){
-  .feed{
-    grid-template-columns:1fr 1fr;
-  }
+
+.feed{
+grid-template-columns:1fr 1fr;
 }
+
+}
+
 </style>
 </head>
+
 <body>
 
 <header>
-  <div class="logo">Growing</div>
 
-  <div class="topBtns">
-    <button class="smallBtn" onclick="toggleDarkMode()">다크모드</button>
-    <button class="smallBtn" onclick="logout()">로그아웃</button>
-  </div>
+<div class="logo">Growing</div>
+
+<div class="topBtns">
+
+<button
+class="smallBtn"
+onclick="toggleDarkMode()"
+>
+다크모드
+</button>
+
+<button
+class="smallBtn"
+onclick="logout()"
+>
+로그아웃
+</button>
+
+</div>
+
 </header>
 
 <div class="container">
 
 <div id="authBox" class="card">
-  <h2>로그인 / 회원가입</h2>
 
-  <input id="nickname" placeholder="닉네임">
-  <input id="email" type="email" placeholder="이메일">
-  <input id="password" type="password" placeholder="비밀번호">
+<h2>로그인 / 회원가입</h2>
 
-  <button onclick="signup()">회원가입</button>
-  <button onclick="login()">로그인</button>
+<input
+id="nickname"
+placeholder="닉네임"
+/>
+
+<input
+id="email"
+type="email"
+placeholder="이메일"
+/>
+
+<input
+id="password"
+type="password"
+placeholder="비밀번호"
+/>
+
+<button onclick="signup()">
+회원가입
+</button>
+
+<button onclick="login()">
+로그인
+</button>
+
 </div>
 
 <div id="app" class="hidden">
 
 <div class="card">
-  <h2 id="userName">사용자</h2>
-  <p id="userLevel">Lv.1 새싹</p>
+
+<h2 id="userName">
+사용자
+</h2>
+
+<div
+id="userLevel"
+class="level"
+>
+Lv.1 새싹
+</div>
+
 </div>
 
 <div class="card">
-  <h2>오늘 목표</h2>
 
-  <input id="goalInput" placeholder="오늘 목표 입력">
-  <button onclick="addGoal()">목표 추가</button>
+<h2>오늘 목표</h2>
 
-  <div id="goalList"></div>
+<input
+id="goalInput"
+placeholder="오늘 목표 입력"
+/>
+
+<button onclick="addGoal()">
+목표 추가
+</button>
+
+<div id="goalList"></div>
+
 </div>
 
 <div class="card">
-  <h2>영상 업로드</h2>
 
-  <input id="videoFile" type="file" accept="video/*">
-  <textarea id="caption" placeholder="영상 설명"></textarea>
+<h2>영상 업로드</h2>
 
-  <button onclick="uploadVideo()">업로드</button>
+<input
+id="videoFile"
+type="file"
+accept="video/*"
+/>
+
+<textarea
+id="caption"
+placeholder="영상 설명"
+></textarea>
+
+<button onclick="uploadVideo()">
+영상 업로드
+</button>
+
 </div>
 
 <div class="card">
-  <h2>영상 피드</h2>
 
-  <div id="feed" class="feed"></div>
+<h2>영상 피드</h2>
+
+<div
+id="feed"
+class="feed"
+></div>
+
 </div>
 
 </div>
+
 </div>
 
 <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+initializeApp
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+getAuth,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword,
+onAuthStateChanged,
+signOut
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
-  getFirestore,
-  doc,
-  setDoc,
-  getDoc,
-  updateDoc,
-  arrayUnion,
-  collection,
-  addDoc,
-  getDocs,
-  query,
-  orderBy
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+getFirestore,
+doc,
+setDoc,
+getDoc,
+updateDoc,
+arrayUnion,
+collection,
+addDoc,
+getDocs,
+query,
+orderBy
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 import {
-  getStorage,
-  ref,
-  uploadBytes,
-  getDownloadURL
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+getStorage,
+ref,
+uploadBytes,
+getDownloadURL
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 const firebaseConfig = {
-  apiKey: "여기에_API_KEY",
-  authDomain: "여기에.firebaseapp.com",
-  projectId: "여기에",
-  storageBucket: "여기에.appspot.com",
-  messagingSenderId: "번호",
-  appId: "앱아이디"
+
+apiKey: "여기에_API_KEY",
+
+authDomain: "여기에.firebaseapp.com",
+
+projectId: "여기에",
+
+storageBucket: "여기에.appspot.com",
+
+messagingSenderId: "번호",
+
+appId: "앱아이디"
+
 };
 
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
+
 const db = getFirestore(app);
+
 const storage = getStorage(app);
 
 window.signup = async function(){
 
-  const nickname = document.getElementById("nickname").value;
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+const nickname =
+document.getElementById("nickname").value;
 
-  try{
+const email =
+document.getElementById("email").value;
 
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+const password =
+document.getElementById("password").value;
 
-    await setDoc(doc(db,"users",userCredential.user.uid),{
-      nickname,
-      email,
-      xp:0,
-      goals:[]
-    });
-
-    alert("회원가입 성공");
-
-  }catch(err){
-    alert(err.message);
-  }
+if(!nickname || !email || !password){
+alert("전부 입력해줘");
+return;
 }
+
+try{
+
+const userCredential =
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+await setDoc(
+doc(db,"users",userCredential.user.uid),
+{
+nickname,
+email,
+xp:0,
+goals:[]
+}
+);
+
+alert("회원가입 성공");
+
+}catch(err){
+
+alert(err.message);
+
+}
+
+};
 
 window.login = async function(){
 
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+const email =
+document.getElementById("email").value;
 
-  try{
+const password =
+document.getElementById("password").value;
 
-    await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+try{
 
-  }catch(err){
-    alert("로그인 실패");
-  }
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+}catch(err){
+
+alert("로그인 실패");
+
 }
+
+};
 
 window.logout = async function(){
-  await signOut(auth);
-}
+
+await signOut(auth);
+
+};
 
 onAuthStateChanged(auth, async(user)=>{
 
-  if(user){
+if(user){
 
-    document.getElementById("authBox").classList.add("hidden");
-    document.getElementById("app").classList.remove("hidden");
+document
+.getElementById("authBox")
+.classList.add("hidden");
 
-    const snap = await getDoc(doc(db,"users",user.uid));
+document
+.getElementById("app")
+.classList.remove("hidden");
 
-    if(snap.exists()){
+const snap =
+await getDoc(
+doc(db,"users",user.uid)
+);
 
-      const data = snap.data();
+if(snap.exists()){
 
-      document.getElementById("userName").innerText = data.nickname;
+const data = snap.data();
 
-      document.getElementById("userLevel").innerText =
-      "Lv." + (Math.floor(data.xp/100)+1);
+document
+.getElementById("userName")
+.innerText = data.nickname;
 
-      renderGoals(data.goals || []);
-    }
+document
+.getElementById("userLevel")
+.innerText =
+"Lv." +
+(Math.floor(data.xp/100)+1);
 
-    loadVideos();
+renderGoals(data.goals || []);
 
-  }else{
+}
 
-    document.getElementById("authBox").classList.remove("hidden");
-    document.getElementById("app").classList.add("hidden");
-  }
+loadVideos();
+
+}else{
+
+document
+.getElementById("authBox")
+.classList.remove("hidden");
+
+document
+.getElementById("app")
+.classList.add("hidden");
+
+}
+
 });
 
 window.addGoal = async function(){
 
-  const text = document.getElementById("goalInput").value;
+const text =
+document.getElementById("goalInput").value;
 
-  if(!text) return;
+if(!text) return;
 
-  const user = auth.currentUser;
+const user = auth.currentUser;
 
-  const userRef = doc(db,"users",user.uid);
+const userRef =
+doc(db,"users",user.uid);
 
-  await updateDoc(userRef,{
-    goals:arrayUnion(text),
-    xp:arrayUnion()
-  });
+await updateDoc(userRef,{
 
-  location.reload();
-}
+goals: arrayUnion(text)
+
+});
+
+location.reload();
+
+};
 
 function renderGoals(goals){
 
-  const box = document.getElementById("goalList");
+const box =
+document.getElementById("goalList");
 
-  box.innerHTML = "";
+box.innerHTML = "";
 
-  goals.forEach(goal=>{
+goals.forEach(goal=>{
 
-    const div = document.createElement("div");
+const div =
+document.createElement("div");
 
-    div.className = "card";
+div.className = "goal";
 
-    div.innerText = goal;
+div.innerText = goal;
 
-    box.appendChild(div);
-  });
+box.appendChild(div);
+
+});
+
 }
 
 window.uploadVideo = async function(){
 
-  const file = document.getElementById("videoFile").files[0];
-  const caption = document.getElementById("caption").value;
+const file =
+document.getElementById("videoFile").files[0];
 
-  if(!file) return;
+const caption =
+document.getElementById("caption").value;
 
-  const storageRef = ref(storage,`videos/${Date.now()}_${file.name}`);
-
-  await uploadBytes(storageRef,file);
-
-  const url = await getDownloadURL(storageRef);
-
-  await addDoc(collection(db,"videos"),{
-    video:url,
-    caption,
-    createdAt:Date.now(),
-    user:auth.currentUser.email
-  });
-
-  alert("업로드 완료");
-
-  loadVideos();
+if(!file){
+alert("영상 선택해줘");
+return;
 }
+
+const storageRef =
+ref(
+storage,
+`videos/${Date.now()}_${file.name}`
+);
+
+await uploadBytes(storageRef,file);
+
+const url =
+await getDownloadURL(storageRef);
+
+await addDoc(
+collection(db,"videos"),
+{
+video:url,
+caption,
+createdAt:Date.now(),
+user:auth.currentUser.email
+}
+);
+
+alert("업로드 완료");
+
+loadVideos();
+
+};
 
 async function loadVideos(){
 
-  const feed = document.getElementById("feed");
+const feed =
+document.getElementById("feed");
 
-  feed.innerHTML = "";
+feed.innerHTML = "";
 
-  const q = query(
-    collection(db,"videos"),
-    orderBy("createdAt","desc")
-  );
+const q = query(
+collection(db,"videos"),
+orderBy("createdAt","desc")
+);
 
-  const snap = await getDocs(q);
+const snap =
+await getDocs(q);
 
-  snap.forEach(docu=>{
+snap.forEach(docu=>{
 
-    const data = docu.data();
+const data = docu.data();
 
-    const div = document.createElement("div");
+const div =
+document.createElement("div");
 
-    div.className = "card";
+div.className = "post";
 
-    div.innerHTML = `
-      <video controls src="${data.video}"></video>
-      <p style="margin-top:10px;font-weight:900">${data.caption}</p>
-      <p style="margin-top:8px;color:gray">${data.user}</p>
-    `;
+div.innerHTML = `
 
-    feed.appendChild(div);
-  });
+<video
+controls
+src="${data.video}"
+></video>
+
+<div style="padding:14px">
+
+<p style="font-weight:900">
+${data.caption}
+</p>
+
+<p style="margin-top:8px;color:gray">
+${data.user}
+</p>
+
+</div>
+
+`;
+
+feed.appendChild(div);
+
+});
+
 }
 
 window.toggleDarkMode = function(){
-  document.body.classList.toggle("dark");
-}
+
+document.body.classList.toggle("dark");
+
+};
 
 if("serviceWorker" in navigator){
-  navigator.serviceWorker.register("service-worker.js");
+
+navigator.serviceWorker.register(
+"service-worker.js"
+);
+
 }
 
 </script>
 
 </body>
 </html>
-```
-
-# 추가로 만들어야 하는 파일
-
-## manifest.json
-
-```json
-{
-  "name": "Growing",
-  "short_name": "Growing",
-  "start_url": "/growing/",
-  "display": "standalone",
-  "background_color": "#e8ffe8",
-  "theme_color": "#31a852"
-}
-```
-
----
-
-## service-worker.js
-
-```javascript
-self.addEventListener("install",e=>{
-  self.skipWaiting();
-});
-```
