@@ -2,362 +2,465 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Growing - 하루 목표 성장 앱</title>
 
-<meta
-name="google-site-verification"
-content="DGgIS6LN5vvOAIWMTcM1bHY77o02GwodivpZzrHWZ1E"
-/>
+<meta name="description" content="Growing은 목표 체크, 성장 기록, 영상 업로드 기능이 있는 성장 웹앱입니다.">
 
-<title>Growing - 성장 기록 앱</title>
+<meta property="og:title" content="Growing">
+<meta property="og:description" content="하루 목표와 성장 기록 앱">
+<meta property="og:type" content="website">
 
-<meta
-name="description"
-content="Growing은 목표 체크, 성장 기록, 영상 업로드, 친구, 채팅 기능이 있는 성장 웹앱입니다."
-/>
-
-<link rel="manifest" href="manifest.json" />
-
-<meta name="theme-color" content="#31a852" />
+<meta name="theme-color" content="#2fb344">
 
 <style>
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:sans-serif;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 
 body{
-background:#e8ffe8;
-color:#14351d;
+  background:#e9ffe8;
+  color:#12351d;
 }
 
-.dark{
-background:#111;
-color:white;
+.app{
+  width:100%;
+  min-height:100vh;
 }
 
-header{
-position:sticky;
-top:0;
-z-index:10;
-background:white;
-padding:16px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:1px solid #d6f2d6;
-}
-
-.dark header{
-background:#1e1e1e;
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:#ffffffdd;
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid #d7f0d7;
+  padding:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
 .logo{
-font-size:28px;
-font-weight:900;
-color:#16843a;
+  font-size:28px;
+  font-weight:900;
+  color:#1d8a3e;
+}
+
+.btn{
+  border:none;
+  background:#2fb344;
+  color:white;
+  padding:12px 16px;
+  border-radius:14px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.btn2{
+  border:none;
+  background:#efffef;
+  color:#22753c;
+  padding:12px 16px;
+  border-radius:14px;
+  font-weight:800;
+  cursor:pointer;
 }
 
 .container{
-max-width:1000px;
-margin:auto;
-padding:16px;
-padding-bottom:100px;
+  width:100%;
+  max-width:1100px;
+  margin:auto;
+  padding:18px;
 }
 
 .card{
-background:white;
-padding:20px;
-border-radius:24px;
-margin-top:16px;
-box-shadow:0 5px 20px rgba(0,0,0,0.08);
+  background:white;
+  border-radius:24px;
+  padding:18px;
+  border:1px solid #d9f3d9;
+  box-shadow:0 10px 30px rgba(0,0,0,.05);
 }
 
-.dark .card{
-background:#1f1f1f;
+.auth{
+  width:100%;
+  max-width:430px;
+  margin:40px auto;
 }
 
-input,
-textarea,
-button{
-width:100%;
-padding:14px;
-border:none;
-border-radius:16px;
-margin-top:10px;
-font-size:16px;
+.input{
+  width:100%;
+  padding:15px;
+  margin-top:12px;
+  border-radius:16px;
+  border:1px solid #cceccc;
+  outline:none;
 }
 
-input,
-textarea{
-background:#f4fff4;
+.input:focus{
+  border-color:#2fb344;
 }
 
-.dark input,
-.dark textarea{
-background:#2d2d2d;
-color:white;
+.title{
+  font-size:28px;
+  font-weight:900;
+  margin-bottom:10px;
 }
 
-button{
-background:#31a852;
-color:white;
-font-weight:900;
-cursor:pointer;
-}
-
-.feed{
-display:grid;
-grid-template-columns:1fr;
-gap:16px;
-margin-top:16px;
-}
-
-.post{
-background:white;
-border-radius:24px;
-overflow:hidden;
-}
-
-.dark .post{
-background:#1f1f1f;
-}
-
-video{
-width:100%;
-display:block;
-}
-
-.topBtns{
-display:flex;
-gap:10px;
-}
-
-.smallBtn{
-width:auto;
-padding:10px 14px;
-}
-
-.goal{
-padding:14px;
-background:#f4fff4;
-border-radius:16px;
-margin-top:10px;
-font-weight:900;
-}
-
-.dark .goal{
-background:#2d2d2d;
+.sub{
+  color:#5f7463;
+  margin-top:8px;
 }
 
 .hidden{
-display:none;
+  display:none;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.profile{
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+
+.avatar{
+  width:70px;
+  height:70px;
+  border-radius:22px;
+  background:#d6f7d4;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  font-weight:900;
+  color:#2b8f44;
 }
 
 .level{
-margin-top:8px;
-font-weight:900;
-color:#31a852;
+  margin-top:8px;
+  background:#efffef;
+  color:#23823f;
+  display:inline-block;
+  padding:7px 12px;
+  border-radius:999px;
+  font-weight:800;
 }
 
-@media(min-width:900px){
+.goalBox{
+  display:flex;
+  gap:10px;
+  margin-top:16px;
+}
+
+.goalInput{
+  flex:1;
+}
+
+.goalList{
+  margin-top:18px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.goal{
+  background:#f8fff8;
+  border:1px solid #d9f3d9;
+  border-radius:18px;
+  padding:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
 .feed{
-grid-template-columns:1fr 1fr;
+  margin-top:24px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
 }
+
+.post{
+  background:white;
+  border-radius:24px;
+  overflow:hidden;
+  border:1px solid #d9f3d9;
+}
+
+.postTop{
+  padding:14px;
+  font-weight:900;
+}
+
+.postImg{
+  width:100%;
+  height:240px;
+  background:linear-gradient(135deg,#dbffdb,#ffffff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:34px;
+  font-weight:900;
+  color:#249141;
+}
+
+.postBody{
+  padding:14px;
+}
+
+.bottomNav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#ffffffee;
+  border-top:1px solid #d7f0d7;
+  display:flex;
+  justify-content:space-around;
+  padding:10px;
+  backdrop-filter:blur(10px);
+}
+
+.navBtn{
+  background:none;
+  border:none;
+  font-weight:800;
+  color:#467050;
+}
+
+@media(max-width:800px){
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .feed{
+    grid-template-columns:1fr;
+  }
 
 }
 
 </style>
 </head>
-
 <body>
 
-<header>
+<div id="authScreen" class="auth">
 
-<div class="logo">Growing</div>
+<div class="card">
 
-<div class="topBtns">
+<div class="title">Growing</div>
 
-<button
-class="smallBtn"
-onclick="toggleDarkMode()"
->
-다크모드
-</button>
+<p class="sub">
+하루 목표를 기록하고 성장하는 앱
+</p>
 
-<button
-class="smallBtn"
-onclick="logout()"
->
-로그아웃
-</button>
+<input id="nickname" class="input" placeholder="닉네임">
 
-</div>
+<input id="email" type="email" class="input" placeholder="이메일">
 
-</header>
+<input id="password" type="password" class="input" placeholder="비밀번호">
 
-<div class="container">
-
-<div id="authBox" class="card">
-
-<h2>로그인 / 회원가입</h2>
-
-<input
-id="nickname"
-placeholder="닉네임"
-/>
-
-<input
-id="email"
-type="email"
-placeholder="이메일"
-/>
-
-<input
-id="password"
-type="password"
-placeholder="비밀번호"
-/>
-
-<button onclick="signup()">
+<button id="signupBtn" class="btn" style="width:100%;margin-top:14px;">
 회원가입
 </button>
 
-<button onclick="login()">
+<button id="loginBtn" class="btn2" style="width:100%;margin-top:10px;">
 로그인
 </button>
 
 </div>
 
-<div id="app" class="hidden">
+</div>
+
+<div id="mainApp" class="hidden">
+
+<header class="topbar">
+
+<div class="logo">
+Growing
+</div>
+
+<button id="logoutBtn" class="btn2">
+로그아웃
+</button>
+
+</header>
+
+<div class="container">
+
+<div class="grid">
 
 <div class="card">
 
-<h2 id="userName">
-사용자
-</h2>
+<div class="profile">
 
-<div
-id="userLevel"
-class="level"
->
+<div class="avatar">
+G
+</div>
+
+<div>
+
+<div id="profileName" style="font-size:24px;font-weight:900;">
+User
+</div>
+
+<div class="level">
 Lv.1 새싹
 </div>
 
 </div>
 
-<div class="card">
-
-<h2>오늘 목표</h2>
-
-<input
-id="goalInput"
-placeholder="오늘 목표 입력"
-/>
-
-<button onclick="addGoal()">
-목표 추가
-</button>
-
-<div id="goalList"></div>
+</div>
 
 </div>
 
 <div class="card">
 
-<h2>영상 업로드</h2>
+<div style="font-size:22px;font-weight:900;">
+오늘 목표
+</div>
 
-<input
-id="videoFile"
-type="file"
-accept="video/*"
-/>
+<div class="goalBox">
 
-<textarea
-id="caption"
-placeholder="영상 설명"
-></textarea>
+<input id="goalInput" class="input goalInput" placeholder="목표 입력">
 
-<button onclick="uploadVideo()">
-영상 업로드
+<button id="addGoalBtn" class="btn">
++
 </button>
 
 </div>
 
-<div class="card">
+<div id="goalList" class="goalList"></div>
 
-<h2>영상 피드</h2>
+</div>
 
-<div
-id="feed"
-class="feed"
-></div>
+</div>
 
+<div class="feed">
+
+<div class="post">
+
+<div class="postTop">
+Growing Team
+</div>
+
+<div class="postImg">
+목표 완료
+</div>
+
+<div class="postBody">
+오늘 목표 성공!
+</div>
+
+</div>
+
+<div class="post">
+
+<div class="postTop">
+Growing Team
+</div>
+
+<div class="postImg">
+성장 기록
+</div>
+
+<div class="postBody">
+매일 성장해보자 🚀
 </div>
 
 </div>
 
 </div>
 
+</div>
+
+<nav class="bottomNav">
+
+<button class="navBtn">
+홈
+</button>
+
+<button class="navBtn">
+영상
+</button>
+
+<button class="navBtn">
+친구
+</button>
+
+<button class="navBtn">
+프로필
+</button>
+
+</nav>
+
+</div>
+
+
+
+
+
+<!-- Firebase -->
 <script type="module">
 
-import {
-initializeApp
-}
+import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-getAuth,
-createUserWithEmailAndPassword,
-signInWithEmailAndPassword,
-onAuthStateChanged,
-signOut
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  updateProfile
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
-getFirestore,
-doc,
-setDoc,
-getDoc,
-updateDoc,
-arrayUnion,
-collection,
-addDoc,
-getDocs,
-query,
-orderBy
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-import {
-getStorage,
-ref,
-uploadBytes,
-getDownloadURL
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
 
 const firebaseConfig = {
 
-apiKey: "여기에_API_KEY",
+  apiKey: "AIzaSyC6BZ6FNpp8b-zfazkN_FwH9jfeG-9yvlU",
 
-authDomain: "여기에.firebaseapp.com",
+  authDomain:
+  "project-1402936998645054843.firebaseapp.com",
 
-projectId: "여기에",
+  projectId:
+  "project-1402936998645054843",
 
-storageBucket: "여기에.appspot.com",
+  storageBucket:
+  "project-1402936998645054843.firebasestorage.app",
 
-messagingSenderId: "번호",
+  messagingSenderId:
+  "679124552041",
 
-appId: "앱아이디"
+  appId:
+  "1:679124552041:web:818eefd82cb99c5d2895f8",
+
+  measurementId:
+  "G-230WFZ0G6P"
 
 };
+
+
 
 const app = initializeApp(firebaseConfig);
 
@@ -365,282 +468,173 @@ const auth = getAuth(app);
 
 const db = getFirestore(app);
 
-const storage = getStorage(app);
 
-window.signup = async function(){
 
-const nickname =
-document.getElementById("nickname").value;
+const authScreen =
+document.getElementById("authScreen");
 
-const email =
-document.getElementById("email").value;
+const mainApp =
+document.getElementById("mainApp");
 
-const password =
-document.getElementById("password").value;
 
-if(!nickname || !email || !password){
-alert("전부 입력해줘");
-return;
-}
 
-try{
+document.getElementById("signupBtn")
+.onclick = async()=>{
 
-const userCredential =
-await createUserWithEmailAndPassword(
-auth,
-email,
-password
-);
+  const nickname =
+  document.getElementById("nickname").value;
 
-await setDoc(
-doc(db,"users",userCredential.user.uid),
-{
-nickname,
-email,
-xp:0,
-goals:[]
-}
-);
+  const email =
+  document.getElementById("email").value;
 
-alert("회원가입 성공");
+  const password =
+  document.getElementById("password").value;
 
-}catch(err){
+  if(!nickname || !email || !password){
 
-alert(err.message);
+    alert("모든 칸 입력해줘");
 
-}
+    return;
 
-};
+  }
 
-window.login = async function(){
+  try{
 
-const email =
-document.getElementById("email").value;
+    const userCredential =
+    await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
-const password =
-document.getElementById("password").value;
+    await updateProfile(
+      userCredential.user,
+      {
+        displayName:nickname
+      }
+    );
 
-try{
+    await setDoc(
+      doc(db,"users",userCredential.user.uid),
+      {
+        nickname:nickname,
+        email:email,
+        createdAt:Date.now()
+      }
+    );
 
-await signInWithEmailAndPassword(
-auth,
-email,
-password
-);
+    alert("회원가입 완료!");
 
-}catch(err){
+  }catch(error){
 
-alert("로그인 실패");
+    alert(error.message);
 
-}
+  }
 
 };
 
-window.logout = async function(){
 
-await signOut(auth);
+
+document.getElementById("loginBtn")
+.onclick = async()=>{
+
+  const email =
+  document.getElementById("email").value;
+
+  const password =
+  document.getElementById("password").value;
+
+  try{
+
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+    alert("로그인 성공!");
+
+  }catch(error){
+
+    alert("로그인 실패");
+
+  }
 
 };
 
-onAuthStateChanged(auth, async(user)=>{
 
-if(user){
 
-document
-.getElementById("authBox")
-.classList.add("hidden");
+document.getElementById("logoutBtn")
+.onclick = async()=>{
 
-document
-.getElementById("app")
-.classList.remove("hidden");
+  await signOut(auth);
 
-const snap =
-await getDoc(
-doc(db,"users",user.uid)
-);
+};
 
-if(snap.exists()){
 
-const data = snap.data();
 
-document
-.getElementById("userName")
-.innerText = data.nickname;
+onAuthStateChanged(auth,(user)=>{
 
-document
-.getElementById("userLevel")
-.innerText =
-"Lv." +
-(Math.floor(data.xp/100)+1);
+  if(user){
 
-renderGoals(data.goals || []);
+    authScreen.classList.add("hidden");
 
-}
+    mainApp.classList.remove("hidden");
 
-loadVideos();
+    document.getElementById(
+      "profileName"
+    ).innerText =
+    user.displayName || "User";
 
-}else{
+  }else{
 
-document
-.getElementById("authBox")
-.classList.remove("hidden");
+    authScreen.classList.remove("hidden");
 
-document
-.getElementById("app")
-.classList.add("hidden");
+    mainApp.classList.add("hidden");
 
-}
+  }
 
 });
 
-window.addGoal = async function(){
 
-const text =
-document.getElementById("goalInput").value;
 
-if(!text) return;
+const goalInput =
+document.getElementById("goalInput");
 
-const user = auth.currentUser;
-
-const userRef =
-doc(db,"users",user.uid);
-
-await updateDoc(userRef,{
-
-goals: arrayUnion(text)
-
-});
-
-location.reload();
-
-};
-
-function renderGoals(goals){
-
-const box =
+const goalList =
 document.getElementById("goalList");
 
-box.innerHTML = "";
 
-goals.forEach(goal=>{
 
-const div =
-document.createElement("div");
+document.getElementById("addGoalBtn")
+.onclick = ()=>{
 
-div.className = "goal";
+  const text = goalInput.value;
 
-div.innerText = goal;
+  if(!text) return;
 
-box.appendChild(div);
+  const div =
+  document.createElement("div");
 
-});
+  div.className = "goal";
 
-}
+  div.innerHTML = `
+    <span>${text}</span>
+    <button class="btn2">완료</button>
+  `;
 
-window.uploadVideo = async function(){
+  div.querySelector("button")
+  .onclick = ()=>{
 
-const file =
-document.getElementById("videoFile").files[0];
+    div.style.opacity = ".5";
 
-const caption =
-document.getElementById("caption").value;
+  };
 
-if(!file){
-alert("영상 선택해줘");
-return;
-}
+  goalList.prepend(div);
 
-const storageRef =
-ref(
-storage,
-`videos/${Date.now()}_${file.name}`
-);
-
-await uploadBytes(storageRef,file);
-
-const url =
-await getDownloadURL(storageRef);
-
-await addDoc(
-collection(db,"videos"),
-{
-video:url,
-caption,
-createdAt:Date.now(),
-user:auth.currentUser.email
-}
-);
-
-alert("업로드 완료");
-
-loadVideos();
+  goalInput.value = "";
 
 };
-
-async function loadVideos(){
-
-const feed =
-document.getElementById("feed");
-
-feed.innerHTML = "";
-
-const q = query(
-collection(db,"videos"),
-orderBy("createdAt","desc")
-);
-
-const snap =
-await getDocs(q);
-
-snap.forEach(docu=>{
-
-const data = docu.data();
-
-const div =
-document.createElement("div");
-
-div.className = "post";
-
-div.innerHTML = `
-
-<video
-controls
-src="${data.video}"
-></video>
-
-<div style="padding:14px">
-
-<p style="font-weight:900">
-${data.caption}
-</p>
-
-<p style="margin-top:8px;color:gray">
-${data.user}
-</p>
-
-</div>
-
-`;
-
-feed.appendChild(div);
-
-});
-
-}
-
-window.toggleDarkMode = function(){
-
-document.body.classList.toggle("dark");
-
-};
-
-if("serviceWorker" in navigator){
-
-navigator.serviceWorker.register(
-"service-worker.js"
-);
-
-}
 
 </script>
 
