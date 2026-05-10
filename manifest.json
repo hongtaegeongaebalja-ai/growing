@@ -1,1 +1,8 @@
-
+{
+  "name": "Growing",
+  "short_name": "Growing",
+  "start_url": "/growing/",
+  "display": "standalone",
+  "background_color": "#e8ffe8",
+  "theme_color": "#31a852"
+}
